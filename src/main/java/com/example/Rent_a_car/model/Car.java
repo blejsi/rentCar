@@ -1,17 +1,16 @@
 package com.example.Rent_a_car.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
+@Table(name = "cars")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cars {
+@Builder
+public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

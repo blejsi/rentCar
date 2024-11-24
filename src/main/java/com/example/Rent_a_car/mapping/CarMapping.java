@@ -1,0 +1,45 @@
+package com.example.Rent_a_car.mapping;
+
+import com.example.Rent_a_car.DTO.CarRequestDto;
+import com.example.Rent_a_car.DTO.CarResponseDto;
+import com.example.Rent_a_car.model.Car;
+import org.springframework.stereotype.Component;
+
+@Component
+public class CarMapping {
+
+    public Car mapToEntity(CarRequestDto carRequestDto) {
+        Car car = Car.builder()
+                .brand(carRequestDto.getBrand())
+                .bodyType(carRequestDto.getBodyType())
+                .colour(carRequestDto.getColour())
+                .mileage(carRequestDto.getMileage())
+                .year(carRequestDto.getYear())
+                .amount(carRequestDto.getAmount()).build();
+
+        return car;
+
+
+
+//        private String model;
+//        private String bodyType;
+//        private String colour;
+//        private Double mileage;
+//        private Integer year;
+//        private Double amount;
+    }
+
+
+    public CarResponseDto mapToResponse(Car cars){
+           CarResponseDto carResponseDto = new CarResponseDto();
+           carResponseDto.setBrand(cars.getBrand());
+           carResponseDto.setBodyType(cars.getBodyType());
+           carResponseDto.setColour(cars.getColour());
+           carResponseDto.setMileage(cars.getMileage());
+           carResponseDto.setYear(cars.getYear());
+           carResponseDto.setAmount(cars.getAmount());
+           return carResponseDto;
+
+
+    }
+}
