@@ -33,15 +33,11 @@ public class CategoryService {
         return categoryMapper.mapToResponse(category);
     }
 
-    public void deleteCategoryById(Long id) {
+    public String deleteCategoryById(Long id) {
         Category existingCategory = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("This category id does not exist!"));
-
-        if (existingCategory != null) {
-            categoryRepository.delete(existingCategory);
-        } else {
-            throw new RuntimeException("This category id does not exist!");
-        }
+        categoryRepository.delete(existingCategory);
+        return "Car category with id " +id+ " deleted";
     }
 
     public ResponseCategoryDto save(RequestCategoryDto request) {
