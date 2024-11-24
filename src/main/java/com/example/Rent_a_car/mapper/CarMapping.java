@@ -1,4 +1,4 @@
-package com.example.Rent_a_car.mapping;
+package com.example.Rent_a_car.mapper;
 
 import com.example.Rent_a_car.DTO.CarRequestDto;
 import com.example.Rent_a_car.DTO.CarResponseDto;
