@@ -16,17 +16,12 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-@NoArgsConstructor
 public class CarService {
 
 
     private  CarMapping carMapping;
-    private CarRepository carRepository;
+    private  CarRepository carRepository;
 
-    @Autowired
-    public CarService(CarMapping carMapping) {
-        this.carMapping = carMapping;
-    }
 
     public List<CarResponseDto> findAll(){
        List<Car> carList = carRepository.findAll();
@@ -55,7 +50,6 @@ public class CarService {
     public CarResponseDto save(CarRequestDto carRequestDto) {
           Car car = carMapping.mapToEntity(carRequestDto);
           Car  car1 = carRepository.save(car);
-
         return carMapping.mapToResponse(car1);
 
     }
@@ -65,6 +59,7 @@ public class CarService {
                 ()->new RuntimeException("This entity not found"));
         car.setBrand(carRequestDto.getBrand());
         car.setModel(carRequestDto.getModel());
+        car.setBodyType(carRequestDto.getBodyType());
         car.setColour(carRequestDto.getColour());
         car.setYear(carRequestDto.getYear());
         car.setYear(carRequestDto.getYear());

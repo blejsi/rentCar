@@ -11,6 +11,7 @@ public class CarMapping {
     public Car mapToEntity(CarRequestDto carRequestDto) {
         Car car = Car.builder()
                 .brand(carRequestDto.getBrand())
+                .model(carRequestDto.getModel())
                 .bodyType(carRequestDto.getBodyType())
                 .colour(carRequestDto.getColour())
                 .mileage(carRequestDto.getMileage())
@@ -32,7 +33,9 @@ public class CarMapping {
 
     public CarResponseDto mapToResponse(Car cars){
            CarResponseDto carResponseDto = new CarResponseDto();
+           carResponseDto.setId(cars.getId());
            carResponseDto.setBrand(cars.getBrand());
+           carResponseDto.setModel(cars.getModel());
            carResponseDto.setBodyType(cars.getBodyType());
            carResponseDto.setColour(cars.getColour());
            carResponseDto.setMileage(cars.getMileage());
