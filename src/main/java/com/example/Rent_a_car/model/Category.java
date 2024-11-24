@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
+@Table(name = "categories")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -15,5 +16,6 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id", nullable = false)
     private Long id;
-    private String brand;
+    private String name;
+    private int paxCapacity;
 }

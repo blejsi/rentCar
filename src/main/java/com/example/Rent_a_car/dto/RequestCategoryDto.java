@@ -11,6 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RequestCategoryDto {
 
-    private Long id;
-    private String brand;
+    private String name;
+    private int paxCapacity;
 }

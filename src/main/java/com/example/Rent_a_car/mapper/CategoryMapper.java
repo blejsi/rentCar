@@ -8,20 +8,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class CategoryMapper {
 
-public Category mapToEntity(RequestCategoryDto requestCategoryDto){
-Category categoryEntity = Category.builder()
-        .id(requestCategoryDto.getId())
-        .brand(requestCategoryDto.getBrand())
-        .build();
+    public Category mapToEntity(RequestCategoryDto requestCategoryDto) {
+        Category categoryEntity = Category.builder()
+                .name(requestCategoryDto.getName())
+                .paxCapacity(requestCategoryDto.getPaxCapacity())
+                .build();
 
-return categoryEntity;
-}
+        return categoryEntity;
+    }
 
-public ResponseCategoryDto mapToResponse(Category category){
-ResponseCategoryDto responseCategoryDto =new ResponseCategoryDto();
-responseCategoryDto.setId(category.getId());
-responseCategoryDto.setBrand(category.getBrand());
+    public ResponseCategoryDto mapToResponse(Category category) {
+        ResponseCategoryDto responseCategoryDto = new ResponseCategoryDto();
+        responseCategoryDto.setId(category.getId());
+        responseCategoryDto.setName(category.getName());
+        responseCategoryDto.setPaxCapacity(category.getPaxCapacity());
 
-return responseCategoryDto;
-}
+        return responseCategoryDto;
+    }
 }

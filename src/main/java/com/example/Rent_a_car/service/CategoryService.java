@@ -22,23 +22,24 @@ public class CategoryService {
 
     private CategoryMapper categoryMapper;
 
-    public List<ResponseCategoryDto> findAll(){
-List<Category> categoryList = categoryRepository.findAll();
-return categoryList.stream().map(c -> categoryMapper.mapToResponse(c)).toList();
+    public List<ResponseCategoryDto> findAll() {
+        List<Category> categoryList = categoryRepository.findAll();
+        return categoryList.stream().map(c -> categoryMapper.mapToResponse(c)).toList();
     }
 
-    public Category getCategoryById(Long id)  {
-        return categoryRepository.findById(id)
+    public ResponseCategoryDto findCategoryById(Long id) {
+        Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("This category id does not exist!"));
+        return categoryMapper.mapToResponse(category);
     }
 
-    public void deleteCategoryById(Long id){
+    public void deleteCategoryById(Long id) {
         Category existingCategory = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("This category id does not exist!"));
 
-        if(existingCategory != null){
+        if (existingCategory != null) {
             categoryRepository.delete(existingCategory);
-        }else{
+        } else {
             throw new RuntimeException("This category id does not exist!");
         }
     }
