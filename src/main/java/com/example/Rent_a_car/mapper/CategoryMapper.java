@@ -9,12 +9,11 @@ import org.springframework.stereotype.Component;
 public class CategoryMapper {
 
     public Category mapToEntity(RequestCategoryDto requestCategoryDto) {
-        Category categoryEntity = Category.builder()
+
+        return Category.builder()
                 .name(requestCategoryDto.getName())
                 .paxCapacity(requestCategoryDto.getPaxCapacity())
                 .build();
-
-        return categoryEntity;
     }
 
     public ResponseCategoryDto mapToResponse(Category category) {

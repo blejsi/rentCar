@@ -19,8 +19,10 @@ public class CategoryService {
 
     @Autowired
     private CategoryRepository categoryRepository;
-
+    @Autowired
     private CategoryMapper categoryMapper;
+
+
 
     public List<ResponseCategoryDto> findAll() {
         List<Category> categoryList = categoryRepository.findAll();
