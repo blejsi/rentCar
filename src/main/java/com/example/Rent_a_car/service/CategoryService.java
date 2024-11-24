@@ -49,4 +49,15 @@ public class CategoryService {
 
     }
 
+public ResponseCategoryDto updateCategory(Long id, RequestCategoryDto request){
+
+    Category category = categoryRepository.findById(id)
+            .orElseThrow(() ->
+                    new RuntimeException("Category with id " + id + " does not exist!"));
+    category.setName(request.getName());
+    category.setPaxCapacity(request.getPaxCapacity());
+    Category updatedCategory = categoryRepository.save(category);
+
+    return categoryMapper.mapToResponse(updatedCategory);
+}
 }

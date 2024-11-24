@@ -3,7 +3,7 @@ package com.example.Rent_a_car.service;
 
 import com.example.Rent_a_car.DTO.CarRequestDto;
 import com.example.Rent_a_car.DTO.CarResponseDto;
-import com.example.Rent_a_car.mapping.CarMapping;
+import com.example.Rent_a_car.mapper.CarMapping;
 import com.example.Rent_a_car.model.Car;
 import com.example.Rent_a_car.repository.CarRepository;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor

@@ -18,14 +18,29 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @PostMapping("/save")
-public ResponseEntity<ResponseCategoryDto> save(@RequestBody RequestCategoryDto requestCategoryDto){
-return new ResponseEntity<>(categoryService.save(requestCategoryDto), HttpStatus.CREATED);
+    public ResponseEntity<ResponseCategoryDto> save(@RequestBody RequestCategoryDto requestCategoryDto) {
+        return new ResponseEntity<>(categoryService.save(requestCategoryDto), HttpStatus.CREATED);
     }
 
-@GetMapping("/findAll")
-public ResponseEntity<List<ResponseCategoryDto>> findAll(){
-
+    @GetMapping("/findAll")
+    public ResponseEntity<List<ResponseCategoryDto>> findAll() {
         return ResponseEntity.ok(categoryService.findAll());
-}
+    }
+
+    @GetMapping("/findCategoryById/{id}")
+    public ResponseEntity<ResponseCategoryDto> findCategoryById(@PathVariable Long id) {
+        return ResponseEntity.ok(categoryService.findCategoryById(id));
+    }
+
+    @DeleteMapping("/delete{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        return ResponseEntity.ok(categoryService.deleteCategoryById(id));
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ResponseCategoryDto> updateCategory(@PathVariable Long id,RequestCategoryDto request){
+        return ResponseEntity.ok(categoryService.updateCategory(id,request));
+    }
+
 
 }
