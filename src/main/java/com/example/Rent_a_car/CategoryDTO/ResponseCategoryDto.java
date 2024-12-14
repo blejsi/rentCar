@@ -1,4 +1,4 @@
-package com.example.Rent_a_car.dto;
+package com.example.Rent_a_car.CategoryDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

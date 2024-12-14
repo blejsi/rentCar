@@ -1,9 +1,10 @@
-package com.example.Rent_a_car.controller;
+package com.example.Rent_a_car.controllers;
 
-import com.example.Rent_a_car.DTO.CarRequestDto;
-import com.example.Rent_a_car.DTO.CarResponseDto;
+import com.example.Rent_a_car.CarDTO.CarRequestDto;
+import com.example.Rent_a_car.CarDTO.CarResponseDto;
 import com.example.Rent_a_car.service.CarService;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/rent")
 @AllArgsConstructor
+@Controller
 public class CarController {
 
     private final CarService carService;
@@ -20,12 +22,14 @@ public class CarController {
         return carService.findAll();
     }
 
-    @GetMapping("/getById/{id}")
-    public CarResponseDto findById(@PathVariable Long id) {
+
+ @GetMapping("/get/{id}")
+    public CarResponseDto findById(@PathVariable Long id){
         return carService.findById(id);
     }
 
-    @PostMapping("/save")
+
+    @PostMapping("/add")
     public CarResponseDto save(@RequestBody CarRequestDto carRequestDto) {
         return carService.save(carRequestDto);
     }

@@ -1,27 +1,26 @@
 package com.example.Rent_a_car.mapper;
 
-import com.example.Rent_a_car.dto.RequestCategoryDto;
-import com.example.Rent_a_car.dto.ResponseCategoryDto;
+
+import com.example.Rent_a_car.CategoryDTO.ResponseCategoryDto;
 import com.example.Rent_a_car.model.Category;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CategoryMapper {
 
-    public Category mapToEntity(RequestCategoryDto requestCategoryDto) {
-        Category categoryEntity = Category.builder()
-                .name(requestCategoryDto.getName())
-                .paxCapacity(requestCategoryDto.getPaxCapacity())
-                .build();
+    public Category mapToEntity(ResponseCategoryDto responseCategoryDto) {
 
-        return categoryEntity;
+        return Category.builder()
+                .name(responseCategoryDto.getName())
+                .paxCapacity(responseCategoryDto.getPaxCapacity())
+                .build();
     }
 
-    public ResponseCategoryDto mapToResponse(Category category) {
+    public ResponseCategoryDto mapToView(Category category) {
         ResponseCategoryDto responseCategoryDto = new ResponseCategoryDto();
-        responseCategoryDto.setId(category.getId());
-        responseCategoryDto.setName(category.getName());
-        responseCategoryDto.setPaxCapacity(category.getPaxCapacity());
+        category.setId(responseCategoryDto.getId());
+        category.setName(responseCategoryDto.getName());
+        category.setPaxCapacity(responseCategoryDto.getPaxCapacity());
 
         return responseCategoryDto;
     }

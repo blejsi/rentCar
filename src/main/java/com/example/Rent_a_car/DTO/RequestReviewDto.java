@@ -1,20 +1,31 @@
 package com.example.Rent_a_car.DTO;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class RequestReviewDto {
+
     private String reviewerName;
     private String comment;
     private int rating;
     private LocalDateTime createdDate;
+
+    private Long carId;
+    private String brand;
+    private String model;
+    private String bodyType;
+    private String colour;
+    private Double mileage;
+    private Integer year;
+    private Double amount;
+
+//    private String reviewerName;
+//    private String comment;
+//    private int rating;
+//    private LocalDateTime createdDate;
 }

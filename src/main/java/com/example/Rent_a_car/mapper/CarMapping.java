@@ -1,38 +1,44 @@
 package com.example.Rent_a_car.mapper;
 
-import com.example.Rent_a_car.DTO.CarRequestDto;
-import com.example.Rent_a_car.DTO.CarResponseDto;
+import com.example.Rent_a_car.CarDTO.CarRequestDto;
+import com.example.Rent_a_car.CarDTO.CarResponseDto;
 import com.example.Rent_a_car.model.Car;
+import com.example.Rent_a_car.model.Category;
+import com.example.Rent_a_car.repository.CategoryRepository;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CarMapping {
 
+
+
     public Car mapToEntity(CarRequestDto carRequestDto) {
-        Car car = Car.builder()
-                .brand(carRequestDto.getBrand())
-                .model(carRequestDto.getModel())
-                .bodyType(carRequestDto.getBodyType())
-                .colour(carRequestDto.getColour())
-                .mileage(carRequestDto.getMileage())
-                .year(carRequestDto.getYear())
-                .amount(carRequestDto.getAmount()).build();
 
-        return car;
+        Category category = new Category();
+        Car carEntity = new Car();
 
 
+        carEntity.setBrand(carRequestDto.getBrand());
+        carEntity.setModel(carRequestDto.getModel());
+        carEntity.setBodyType(carRequestDto.getBodyType());
+        carEntity.setColour(carRequestDto.getColour());
+        carEntity.setMileage(carRequestDto.getMileage());
+        carEntity.setYear(carRequestDto.getYear());
+        carEntity.setAmount(carRequestDto.getAmount());
+        carEntity.setCategory(category);
 
-//        private String model;
-//        private String bodyType;
-//        private String colour;
-//        private Double mileage;
-//        private Integer year;
-//        private Double amount;
+
+        return carEntity;
+
+
+
+
     }
 
 
-    public CarResponseDto mapToResponse(Car cars){
+    public CarResponseDto mapToView(Car cars){
            CarResponseDto carResponseDto = new CarResponseDto();
+
            carResponseDto.setId(cars.getId());
            carResponseDto.setBrand(cars.getBrand());
            carResponseDto.setModel(cars.getModel());
@@ -41,6 +47,9 @@ public class CarMapping {
            carResponseDto.setMileage(cars.getMileage());
            carResponseDto.setYear(cars.getYear());
            carResponseDto.setAmount(cars.getAmount());
+           carResponseDto.setCategoryId(cars.getCategory().getId());
+           carResponseDto.setCategoryName(cars.getCategory().getName());
+           carResponseDto.setCategoryPaxCapacity(cars.getCategory().getPaxCapacity());
            return carResponseDto;
 
 

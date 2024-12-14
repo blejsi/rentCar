@@ -1,16 +1,13 @@
-package com.example.Rent_a_car.DTO;
+package com.example.Rent_a_car.CarDTO;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.example.Rent_a_car.model.Category;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CarResponseDto {
-    private Long id;
+public class CarRequestDto {
+
     private String brand;
     private String model;
     private String bodyType;
@@ -18,4 +15,9 @@ public class CarResponseDto {
     private Double mileage;
     private Integer year;
     private Double amount;
+
+
+    private String CategoryName;
+    private int categoryPaxCapacity;
+
 }

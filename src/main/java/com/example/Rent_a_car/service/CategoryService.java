@@ -1,7 +1,8 @@
 package com.example.Rent_a_car.service;
 
-import com.example.Rent_a_car.dto.RequestCategoryDto;
-import com.example.Rent_a_car.dto.ResponseCategoryDto;
+
+import com.example.Rent_a_car.CategoryDTO.RequestCategoryDto;
+import com.example.Rent_a_car.CategoryDTO.ResponseCategoryDto;
 import com.example.Rent_a_car.mapper.CategoryMapper;
 import com.example.Rent_a_car.model.Category;
 import com.example.Rent_a_car.repository.CategoryRepository;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,17 +22,19 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    private CategoryMapper categoryMapper;
+    private CategoryMapper mapper;
 
     public List<ResponseCategoryDto> findAll() {
         List<Category> categoryList = categoryRepository.findAll();
-        return categoryList.stream().map(c -> categoryMapper.mapToResponse(c)).toList();
+        List<ResponseCategoryDto> responseCategoryDtoList = categoryList.stream()
+                .map(cat->mapper.mapToView(cat)).toList();
+           return responseCategoryDtoList;
     }
 
-    public ResponseCategoryDto findCategoryById(Long id) {
-        Category category = categoryRepository.findById(id)
+    public ResponseCategoryDto findCategoryByName(String name) {
+        Category category = categoryRepository.findByName(name)
                 .orElseThrow(() -> new RuntimeException("This category id does not exist!"));
-        return categoryMapper.mapToResponse(category);
+        return mapper.mapToView(category);
     }
 
     public String deleteCategoryById(Long id) {
@@ -40,13 +44,18 @@ public class CategoryService {
         return "Car category with id " +id+ " deleted";
     }
 
-    public ResponseCategoryDto save(RequestCategoryDto request) {
-        Category category = categoryMapper.mapToEntity(request);
+    public ResponseCategoryDto updateCategory(RequestCategoryDto requestCategoryDto,String name) {
+        Category category = categoryRepository.findByName(name)
+                .orElseThrow(() -> new RuntimeException("This category id does not exist!"));
 
-        Category savedCategory = categoryRepository.save(category);
+        category.setName(requestCategoryDto.getName());
+        category.setPaxCapacity(requestCategoryDto.getPaxCapacity());
 
-        return categoryMapper.mapToResponse(savedCategory);
+        Category updatedCategory = categoryRepository.save(category);
+        return mapper.mapToView(updatedCategory);
+
 
     }
+
 
 }

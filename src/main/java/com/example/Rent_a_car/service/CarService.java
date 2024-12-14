@@ -1,17 +1,17 @@
 package com.example.Rent_a_car.service;
 
 
-import com.example.Rent_a_car.DTO.CarRequestDto;
-import com.example.Rent_a_car.DTO.CarResponseDto;
+import com.example.Rent_a_car.CarDTO.CarRequestDto;
+import com.example.Rent_a_car.CarDTO.CarResponseDto;
+import com.example.Rent_a_car.CategoryDTO.RequestCategoryDto;
 import com.example.Rent_a_car.mapper.CarMapping;
 import com.example.Rent_a_car.model.Car;
+import com.example.Rent_a_car.model.Category;
 import com.example.Rent_a_car.repository.CarRepository;
+import com.example.Rent_a_car.repository.CategoryRepository;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,21 +19,16 @@ import java.util.List;
 public class CarService {
 
 
-    private  CarMapping carMapping;
+    private  CarMapping mapping;
     private  CarRepository carRepository;
+    private CategoryRepository categoryRepository;
 
 
     public List<CarResponseDto> findAll(){
        List<Car> carList = carRepository.findAll();
 
-       List<CarResponseDto> carResponseDtoList = new ArrayList<>();
 
-       for (Car c : carList) {
-
-           carResponseDtoList.add(carMapping.mapToResponse(c));
-
-       }
-       return carResponseDtoList;
+        return carList.stream().map(c-> mapping.mapToView(c)).toList();
 
     }
 
@@ -43,18 +38,30 @@ public class CarService {
        Car car = carRepository.findById(id).orElseThrow(
                ()->new RuntimeException("This entity not found"));
 
-       return carMapping.mapToResponse(car);
+       return mapping.mapToView(car);
 
     }
 
     public CarResponseDto save(CarRequestDto carRequestDto) {
-          Car car = carMapping.mapToEntity(carRequestDto);
-          Car  car1 = carRepository.save(car);
-        return carMapping.mapToResponse(car1);
+        Category category = categoryRepository.findByName(carRequestDto.getCategoryName())
+                .orElseGet(() -> {
+                    Category newCategory = new Category();
+                    newCategory.setName(carRequestDto.getCategoryName());
+                    newCategory.setPaxCapacity(carRequestDto.getCategoryPaxCapacity());
+                    return categoryRepository.save(newCategory);
+                });
 
+        Car car = mapping.mapToEntity(carRequestDto);
+        car.setCategory(category); // Associate the category
+        Car savedCar = carRepository.save(car);
+
+        return mapping.mapToView(savedCar);
     }
 
+
     public CarResponseDto update(Long id, CarRequestDto carRequestDto) {
+
+
         Car car = carRepository.findById(id).orElseThrow(
                 ()->new RuntimeException("This entity not found"));
         car.setBrand(carRequestDto.getBrand());
@@ -62,18 +69,27 @@ public class CarService {
         car.setBodyType(carRequestDto.getBodyType());
         car.setColour(carRequestDto.getColour());
         car.setYear(carRequestDto.getYear());
-        car.setYear(carRequestDto.getYear());
+        car.setMileage(carRequestDto.getMileage());
         car.setAmount(carRequestDto.getAmount());
+
+        if (carRequestDto.getCategoryName() == null || carRequestDto.getCategoryName().isBlank()) {
+            throw new IllegalArgumentException("Category name must not be null or empty.");
+        }
+
+        Category category = categoryRepository.findByName(carRequestDto.getCategoryName())
+                .orElseGet(()->{   Category newCategory = new Category();
+                    newCategory.setName(carRequestDto.getCategoryName());
+                    newCategory.setPaxCapacity(carRequestDto.getCategoryPaxCapacity());
+                    return categoryRepository.save(newCategory);
+                }
+                );
+
+        car.setCategory(category);
+
        Car car1 = carRepository.save(car);
 
-       return carMapping.mapToResponse(car1);
+       return mapping.mapToView(car1);
 
-//        private String model;
-//        private String bodyType;
-//        private String colour;
-//        private Double mileage;
-//        private Integer year;
-//        private Double amount;
     }
 
     public String delete(Long id) {

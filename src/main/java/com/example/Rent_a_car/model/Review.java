@@ -19,10 +19,14 @@ public class Review {
     private Long id;
 
     private String reviewerName;
+
     private String comment;
+
     private int rating;
     private LocalDateTime createdDate;
 
-    //@ManyToOne
-    //private Car car;
+
+    @ManyToOne(fetch = FetchType.EAGER ,optional = false)
+    @JoinColumn(name = "car_id",nullable = false)
+    private Car car;
 }

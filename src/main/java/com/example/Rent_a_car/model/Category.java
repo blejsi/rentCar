@@ -3,6 +3,8 @@ package com.example.Rent_a_car.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "categories")
 @Getter
@@ -18,4 +20,8 @@ public class Category {
     private Long id;
     private String name;
     private int paxCapacity;
+
+
+
+
 }

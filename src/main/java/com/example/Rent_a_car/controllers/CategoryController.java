@@ -1,13 +1,10 @@
 package com.example.Rent_a_car.controllers;
 
-import com.example.Rent_a_car.dto.RequestCategoryDto;
-import com.example.Rent_a_car.dto.ResponseCategoryDto;
+import com.example.Rent_a_car.CategoryDTO.RequestCategoryDto;
+import com.example.Rent_a_car.CategoryDTO.ResponseCategoryDto;
 import com.example.Rent_a_car.service.CategoryService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -17,15 +14,25 @@ public class CategoryController {
 
     private CategoryService categoryService;
 
-    @PostMapping("/save")
-public ResponseEntity<ResponseCategoryDto> save(@RequestBody RequestCategoryDto requestCategoryDto){
-return new ResponseEntity<>(categoryService.save(requestCategoryDto), HttpStatus.CREATED);
-    }
 
-@GetMapping("/findAll")
-public ResponseEntity<List<ResponseCategoryDto>> findAll(){
 
-        return ResponseEntity.ok(categoryService.findAll());
-}
+     @GetMapping("/findAll")
+     public List<ResponseCategoryDto> findAll(){
 
+        return categoryService.findAll();
+      }
+
+      @GetMapping
+      public ResponseCategoryDto findByName(String name){
+         return categoryService.findCategoryByName(name);
+      }
+
+      @DeleteMapping("/delete/{id}")
+    public String deleteCategoryById(@PathVariable Long id ){
+         return categoryService.deleteCategoryById(id);
+      }
+      @PutMapping ("/update/{name}")
+      public ResponseCategoryDto updateCategoryById(@RequestBody RequestCategoryDto requestCategoryDto, @PathVariable String name ){
+         return categoryService.updateCategory(requestCategoryDto, name);
+      }
 }

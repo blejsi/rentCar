@@ -14,29 +14,33 @@ import java.util.List;
 @Controller
 @ResponseBody
 @AllArgsConstructor
-@RequestMapping("/api/reviews")
+@RequestMapping("/api/review")
 public class ReviewController {
 
     private final ReviewService reviewService;
 
     @PostMapping("/save")
-    public ResponseEntity<ResponseReviewDto> save(@RequestBody RequestReviewDto requestReviewDto) {
-        return new ResponseEntity<>(reviewService.save(requestReviewDto), HttpStatus.CREATED);
+    public ResponseReviewDto save(@RequestBody RequestReviewDto requestReviewDto) {
+        return reviewService.save(requestReviewDto);
     }
 
     @GetMapping("/findAll")
-    public ResponseEntity<List<ResponseReviewDto>> findAll() {
-        return ResponseEntity.ok(reviewService.findAll());
+    public List<ResponseReviewDto> findAll() {
+        return reviewService.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("findById/{id}")
     public ResponseEntity<ResponseReviewDto> findById(@PathVariable Long id) {
         return ResponseEntity.ok(reviewService.findById(id));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
+    @DeleteMapping("delete/{id}")
+    public void deleteById(@PathVariable Long id) {
         reviewService.deleteById(id);
-        return ResponseEntity.noContent().build();
     }
+    @PutMapping("update/{id}")
+    public ResponseReviewDto update(@PathVariable Long id,@RequestBody RequestReviewDto requestReviewDto){
+        return  reviewService.updateReview(id,requestReviewDto);
+    }
+
 }
