@@ -1,14 +1,12 @@
 package com.example.Rent_a_car.service;
 
 
-import com.example.Rent_a_car.DTO.CarRequestDto;
-import com.example.Rent_a_car.DTO.CarResponseDto;
+import com.example.Rent_a_car.CarDTO.CarRequestDto;
+import com.example.Rent_a_car.CarDTO.CarResponseDto;
 import com.example.Rent_a_car.mapper.CarMapping;
 import com.example.Rent_a_car.model.Car;
 import com.example.Rent_a_car.repository.CarRepository;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

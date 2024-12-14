@@ -1,7 +1,7 @@
 package com.example.Rent_a_car.mapper;
 
-import com.example.Rent_a_car.DTO.CarRequestDto;
-import com.example.Rent_a_car.DTO.CarResponseDto;
+import com.example.Rent_a_car.CarDTO.CarRequestDto;
+import com.example.Rent_a_car.CarDTO.CarResponseDto;
 import com.example.Rent_a_car.model.Car;
 import org.springframework.stereotype.Component;
 

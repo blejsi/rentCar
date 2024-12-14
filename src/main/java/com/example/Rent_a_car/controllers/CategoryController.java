@@ -1,7 +1,7 @@
 package com.example.Rent_a_car.controllers;
 
-import com.example.Rent_a_car.dto.RequestCategoryDto;
-import com.example.Rent_a_car.dto.ResponseCategoryDto;
+import com.example.Rent_a_car.CategoryDTO.RequestCategoryDto;
+import com.example.Rent_a_car.CategoryDTO.ResponseCategoryDto;
 import com.example.Rent_a_car.service.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.example.Rent_a_car.DTO;
+package com.example.Rent_a_car.CarDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CarRequestDto {
-
+public class CarResponseDto {
+    private Long id;
     private String brand;
     private String model;
     private String bodyType;
